@@ -13,7 +13,7 @@ inst.first_search(date=1)
 from booking.filtering import Filtering
 filter = Filtering(inst)
 # %%
-filter.reminder()
+filter.bingo()
 # %%
 filter.filter_rooms()
 

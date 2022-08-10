@@ -11,12 +11,12 @@ class Filtering:
     def reminder(self):
         self.driver.execute_script("window.open('');")
         self.driver.implicitly_wait(3)  # It takes time to open a new tab!
-        self.driver.switch_to.window =self.driver.window_handles[1]
+        self.driver.switch_to.window(self.driver.window_handles[1])
         # self.driver.get(r'C:\Users\wpp_1\Documents\Codes\housing_scrap\housing\booking_bot\booking\bingo.html')
         self.driver.get(r'https://api.letserver.run/message/info?token=cbm8nigjn874h62h4uog&msg=有房啦！')
         self.driver.execute_script("window.open('');")
         self.driver.implicitly_wait(3)
-        self.driver.switch_to.window = self.driver.window_handles[2]
+        self.driver.switch_to.window(self.driver.window_handles[2])
         self.driver.get(r'http://api.callmebot.com/start.php?user=@Kazan1832&text=The+house+is+leasing&lang=en-GB-Standard-B&rpt=5&cc=yes&timeout=100')
 
     def wait_and_close(self):
@@ -26,9 +26,9 @@ class Filtering:
             time.sleep(60)
         wind_num = len(self.driver.window_handles)
         for i in range(1,wind_num):
-            self.driver.switch_to.window = self.driver.window_handles[-1]
+            self.driver.switch_to.window(self.driver.window_handles[-1])
             self.driver.close()
-        self.driver.switch_to.window = self.driver.search_window
+        self.driver.switch_to.window(self.driver.search_window)
 
     def bingo(self):
         self.reminder()
@@ -41,18 +41,16 @@ class Filtering:
         done = False
         while max_retry <times:
             try:
-                location_box.click()  #! Still needs to be tested
+                location_box.click()
                 self.driver.implicitly_wait(5)
-                # self.bingo()  #! Still need to be tested!
-                self.reminder()
+                self.bingo()
                 time.sleep(15)
-                self.driver.switch_to.window = self.driver.search_window
                 book.fill_form()
                 status0 = True
                 break
             except Exception:
                 max_retry += 1
-                self.driver.switch_to.window = self.driver.search_window
+                self.driver.switch_to.window(self.driver.search_window)
         return status0
 
     def filter_rooms(self):
