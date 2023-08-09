@@ -48,15 +48,15 @@ class Booking:
         # fill in the name
         first_names = self.driver.find_elements(By.XPATH,"  //input[contains(@id, 'input_firstname')]")
         if len(first_names)>=2:
-            self.try_fill(first_names, 'Peixuan')
+            self.try_fill(first_names, 'YourName')
         else:
-            first_names[0].send_keys('Peixuan')
+            first_names[0].send_keys('YourName')
         
         last_names = self.driver.find_elements(By.XPATH,"  //input[contains(@id, 'input_lastname')]")
         if len(last_names)>=2:
-            self.try_fill(last_names,'Wu')
+            self.try_fill(last_names,'YourFamilyName')
         else:
-            last_names[0].send_keys('Wu')
+            last_names[0].send_keys('YourFamilyName')
 
         # get birthday
         birth = self.driver.find_element(By.XPATH,"//input[contains(@title, 'Geburtsdatum')]")
@@ -68,9 +68,9 @@ class Booking:
         for _ in range(birth_year_clicks):
             previous_year.click()
             time.sleep(0.4)
-        march = self.driver.find_element(By.CSS_SELECTOR,'td[aria-label="März 1997"]')
+        march = self.driver.find_element(By.CSS_SELECTOR,'td[aria-label="YourBirthdayMonthinGerman YourBirthdayYear"]')
         march.click()
-        march19 = self.driver.find_element(By.XPATH,"//div[contains(text(), ' 19 ')]")
+        march19 = self.driver.find_element(By.XPATH,"//div[contains(text(), ' YourBirthdayDate ')]")
         march19.click()
 
         # select gender
@@ -88,15 +88,15 @@ class Booking:
         # fill phone nr.
         phone_ctry_code = self.driver.find_elements(By.XPATH,"//input[contains(@id, 'input_countryCode')]")
         if len(phone_ctry_code)>=2:
-            self.try_fill(phone_ctry_code,'0031')
+            self.try_fill(phone_ctry_code,'PhoneCOuntryNumber')
         else:
-            phone_ctry_code[0].send_keys('0031')
+            phone_ctry_code[0].send_keys('PhoneCOuntryNumber')
         
         phone = self.driver.find_elements(By.XPATH,"//input[contains(@id, 'input_phone')]")
         if len(phone)>=2:
-            self.try_fill(phone,'659361714')
+            self.try_fill(phone,'PhoneNumber')
         else:
-            phone[0].send_keys('659361714')
+            phone[0].send_keys('PhoneNumber')
         
         # fill child nr.
         child = self.driver.find_elements(By.XPATH,"//input[contains(@id, 'input_amountOfChildren')]")
@@ -107,14 +107,14 @@ class Booking:
 
         email = self.driver.find_elements(By.XPATH,"//input[contains(@id, 'input_email')]")
         if len(email)>=2:
-            self.try_fill(email,'wpp_123@live.com')
+            self.try_fill(email,'YourEmail')
         else:
-            email[0].send_keys('wpp_123@live.com')
+            email[0].send_keys('YourEmail')
         email2 = self.driver.find_elements(By.XPATH,"//input[contains(@id, 'input_confirmEmail')]")
         if len(email2)>=2:
-            self.try_fill(email2,'wpp_123@live.com')
+            self.try_fill(email2,'YourEmail')
         else:
-            email2[0].send_keys('wpp_123@live.com')
+            email2[0].send_keys('YourEmail')
 
     def institution(self):
         occupation = self.driver.find_element(By.ID,'occupation')
@@ -123,14 +123,14 @@ class Booking:
         stu.click()
         uni = self.driver.find_elements(By.XPATH,"//input[contains(@id, 'input_occupationFacility')]")
         if len(uni)>=2:
-            self.try_fill(uni,'Charité – Universitätsmedizin Berlin')
+            self.try_fill(uni,'YourUni')
         else:
-            uni[0].send_keys('Charité – Universitätsmedizin Berlin')
+            uni[0].send_keys('YourUni')
         
         # material = self.driver.find_element(By.XPATH,"//button/span/mat-icon[contains(text(),'attach_file')]")
         # material.click()
         material = self.driver.find_element(By.XPATH,"//input[contains(@id, 'file_attachment')]")
-        material.send_keys(r'C:\Users\wpp_1\Documents\Neurasmus\Charité\Admission letter Charite-Wu.pdf')
+        material.send_keys(r'PATH\TO\YOUR\ADMISSION\LETTER')
 
     def move_in_info(self):
         begin_date = self.driver.find_element(By.XPATH,"//div/*/mat-select[contains(@id,'plannedMoveInDate')]")
@@ -152,14 +152,14 @@ class Booking:
         self.back_to_body()
 
     def confirm(self, elements):
-        cond0 = (elements[-6].text =='Admission letter Charite-Wu.pdf')
-        cond1 = ('Aug. 2022' in elements[-5].text) | ('Sep. 2022' in elements[-5].text)
-        cond2 = (elements[-4].text=='30. Sep. 2023')
-        cond3 = (elements[-3].text=='06. Sep. 2022, 14:00')
+        cond0 = (elements[-6].text =='FileNameOfAdmissionLetter')
+        cond1 = ('Aug. 2022' in elements[-5].text) | ('Sep. 2022' in elements[-5].text) # The month that you want to move in
+        cond2 = (elements[-4].text=='30. Sep. 2023') # The date that you want to move out
+        cond3 = (elements[-3].text=='06. Sep. 2022, 14:00') # The data and time that you want to move in (not neccessarily to move in at this specific time since their office is opened for 24/7)
         if not self.driver.test:
-            cond4 = int(elements[-2].text[:4])<= 450
+            cond4 = int(elements[-2].text[:4])<= 450  # The rent that your're expecting - lower boundary
         else:
-            cond4 = int(elements[-2].text[:4])<800
+            cond4 = int(elements[-2].text[:4])<800  # The rent that your're expecting - higher boundary
         overall = cond0 & cond1 & cond2 & cond3 & cond4
         return overall
 
