@@ -13,11 +13,11 @@ class Filtering:
         self.driver.implicitly_wait(3)  # It takes time to open a new tab!
         self.driver.switch_to.window(self.driver.window_handles[1])
         # self.driver.get(r'C:\Users\wpp_1\Documents\Codes\housing_scrap\housing\booking_bot\booking\bingo.html')
-        self.driver.get(r'https://api.letserver.run/message/info?token=cbm8nigjn874h62h4uog&msg=有房啦！')
+        self.driver.get(r'https://api.letserver.run/message/info?token=YourToken&msg=有房啦！')
         self.driver.execute_script("window.open('');")
         self.driver.implicitly_wait(3)
         self.driver.switch_to.window(self.driver.window_handles[2])
-        self.driver.get(r'http://api.callmebot.com/start.php?user=@Kazan1832&text=The+house+is+leasing&lang=en-GB-Standard-B&rpt=5&cc=yes&timeout=100')
+        self.driver.get(r'http://api.callmebot.com/start.php?user=@YourUsername&text=The+house+is+leasing&lang=en-GB-Standard-B&rpt=5&cc=yes&timeout=100')
 
     def wait_and_close(self):
         if self.driver.test == True:
